@@ -75,17 +75,19 @@ pipeline	{
 		
 		stage('deploy')	{
 			steps	{
-				docker run -d -p 8005:8005 acoounts:v1
-				docker run -d -p 9000:9000 api-gateway:v1
-				docker run -d -p 8006:8006 bill-payment:v1
-				docker run -d -p 7000:7000 config-server:v1
-				docker run -d -p 8761:8761 eureka-server:v1
-				docker run -d -p 8004:8004 loan:v1
-				docker run -d -p 8001:8001 login:v1
-				docker run -d -p 8007:8007 profile:v1
-				docker run -d -p 8000:8000 registration:v1
-				docker run -d -p 8003:8003 statement:v1
-				docker run -d -p 8002:8002 transfer:v1
+				powershell """
+					docker run -d -p 8005:8005 acoounts:v1
+					docker run -d -p 9000:9000 api-gateway:v1
+					docker run -d -p 8006:8006 bill-payment:v1
+					docker run -d -p 7000:7000 config-server:v1
+					docker run -d -p 8761:8761 eureka-server:v1
+					docker run -d -p 8004:8004 loan:v1
+					docker run -d -p 8001:8001 login:v1
+					docker run -d -p 8007:8007 profile:v1
+					docker run -d -p 8000:8000 registration:v1
+					docker run -d -p 8003:8003 statement:v1
+					docker run -d -p 8002:8002 
+				"""
 			}
 		}
 	}
