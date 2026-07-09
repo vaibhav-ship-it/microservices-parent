@@ -6,67 +6,67 @@ pipeline	{
 			steps	{
 				dir('accounts')	{
 					powershell """
-						mvn clean package -Dmaven.test.skip=true
+						mvn clean package -Dmaven.skip.tests=true
 						docker build -t accounts:v1 .
 					"""
 				}
 				dir('api-gateway')	{
 					powershell """
-						mvn clean package -Dmaven.test.skip=true
+						mvn clean package -Dmaven.skip.tests=true
 						docker build -t api-gateway:v1 .
 					"""
 				}
 				dir('bill-payment')	{
 					powershell """
-						mvn clean package -Dmaven.test.skip=true
+						mvn clean package -Dmaven.skip.tests=true
 						docker build -t bill-payment:v1 .
 					"""
 				}
 				dir('config-server')	{
 					powershell """
-						mvn clean package -Dmaven.test.skip=true
+						mvn clean package -Dmaven.skip.tests=true
 						docker build -t config-server:v1 .
 					"""
 				}
 				dir('eureka-server')	{
 					powershell """
-						mvn clean package -Dmaven.test.skip=true
+						mvn clean package -Dmaven.skip.tests=true
 						docker build -t eureka-server:v1 .
 					"""
 				}
 				dir('loan')	{
 					powershell """
-						mvn clean package -Dmaven.test.skip=true
+						mvn clean package -Dmaven.skip.tests=true
 						docker build -t loan:v1 .
 					"""
 				}
 				dir('login')	{
 					powershell """
-						mvn clean package -Dmaven.test.skip=true
+						mvn clean package -Dmaven.skip.tests=true
 						docker build -t login:v1 .
 					"""
 				}
 				dir('profile')	{
 					powershell """
-						mvn clean package -Dmaven.test.skip=true
+						mvn clean package -Dmaven.skip.tests=true
 						docker build -t profile:v1 .
 					"""
 				}
 				dir('registration')	{
 					powershell """
-						mvn clean package -Dmaven.test.skip=true
+						mvn clean package -Dmaven.skip.tests=true
 						docker build -t registration:v1 .
 					"""
 				}
 				dir('statement')	{
 					powershell """
-						mvn clean package -Dmaven.test.skip=true
+						mvn clean package -Dmaven.skip.tests=true
 						docker build -t statement:v1 .
 					"""
 				}
 				dir('transfer')	{
 					powershell """
-						mvn clean package -Dmaven.test.skip=true
+						mvn clean package -Dmaven.skip.tests=true
 						docker build -t transfer:v1 .
 					"""
 				}
