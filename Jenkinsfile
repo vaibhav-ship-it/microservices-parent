@@ -5,48 +5,70 @@ pipeline	{
 		stage('Build')	{
 			steps	{
 				dir('accounts')	{
-					mvn clean package
-					docker build -t accounts:v1 .
+					powershell """
+						mvn clean package
+						docker build -t accounts:v1 .
+					"""
 				}
 				dir('api-gateway')	{
-					mvn clean package
-					docker build -t api-gateway:v1 .
+					powershell """
+						mvn clean package
+						docker build -t api-gateway:v1 .
+					"""
 				}
 				dir('bill-payment')	{
-					mvn clean package
-					docker build -t bill-payment:v1 .
+					powershell """
+						mvn clean package
+						docker build -t bill-payment:v1 .
+					"""
 				}
 				dir('config-server')	{
-					mvn clean package
-					docker build -t config-server:v1 .
+					powershell """
+						mvn clean package
+						docker build -t config-server:v1 .
+					"""
 				}
 				dir('eureka-server')	{
-					mvn clean package
-					docker build -t eureka-server:v1 .
+					powershell """
+						mvn clean package
+						docker build -t eureka-server:v1 .
+					"""
 				}
 				dir('loan')	{
-					mvn clean package
-					docker build -t loan:v1 .
+					powershell """
+						mvn clean package
+						docker build -t loan:v1 .
+					"""
 				}
 				dir('login')	{
-					mvn clean package
-					docker build -t login:v1 .
+					powershell """
+						mvn clean package
+						docker build -t login:v1 .
+					"""
 				}
 				dir('profile')	{
-					mvn clean package
-					docker build -t profile:v1 .
+					powershell """
+						mvn clean package
+						docker build -t profile:v1 .
+					"""
 				}
 				dir('registration')	{
-					mvn clean package
-					docker build -t registration:v1 .
+					powershell """
+						mvn clean package
+						docker build -t registration:v1 .
+					"""
 				}
 				dir('statement')	{
-					mvn clean package
-					docker build -t statement:v1 .
+					powershell """
+						mvn clean package
+						docker build -t statement:v1 .
+					"""
 				}
 				dir('transfer')	{
-					mvn clean package
-					docker build -t transfer:v1 .
+					powershell """
+						mvn clean package
+						docker build -t transfer:v1 .
+					"""
 				}
 			}
 		}
@@ -67,4 +89,16 @@ pipeline	{
 			}
 		}
 	}
+	
+	post {
+        success {
+            echo 'Pipeline completed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Check logs.'
+        }
+        always {
+            cleanWs()
+        }
+    }
 }
