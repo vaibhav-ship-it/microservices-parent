@@ -76,7 +76,7 @@ pipeline	{
 		stage('deploy')	{
 			steps	{
 				powershell """
-					docker run -d -p 8005:8005 acoounts:v1
+					docker run -d -p 8005:8005 accounts:v1
 					docker run -d -p 9000:9000 api-gateway:v1
 					docker run -d -p 8006:8006 bill-payment:v1
 					docker run -d -p 7000:7000 config-server:v1
