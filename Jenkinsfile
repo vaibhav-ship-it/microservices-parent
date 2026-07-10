@@ -86,7 +86,7 @@ pipeline	{
 					docker run -d -p 8007:8007 profile:v1
 					docker run -d -p 8000:8000 registration:v1
 					docker run -d -p 8003:8003 statement:v1
-					docker run -d -p 8002:8002 
+					docker run -d -p 8002:8002 transfer:v1
 				"""
 			}
 		}
