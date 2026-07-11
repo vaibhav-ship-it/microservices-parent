@@ -104,50 +104,82 @@ pipeline	{
             steps {
                 powershell '''
 	                # Stop and remove old container if running
-	                if [ "$(docker ps -q -f name=$ACCOUNTS_CONTAINER)" ]; then
-	                  docker stop $ACCOUNTS_CONTAINER
-	                  docker rm $ACCOUNTS_CONTAINER
-	                fi
-	                if [ "$(docker ps -q -f name=$API_GATEWAY_CONTAINER)" ]; then
-	                  docker stop $API_GATEWAY_CONTAINER
-	                  docker rm $API_GATEWAY_CONTAINER
-	                fi
-	                if [ "$(docker ps -q -f name=$BILL_PAYMENT_CONTAINER)" ]; then
-	                  docker stop $BILL_PAYMENT_CONTAINER
-	                  docker rm $BILL_PAYMENT_CONTAINER
-	                fi
-	                if [ "$(docker ps -q -f name=$CONFIG_SERVER_CONTAINER)" ]; then
-	                  docker stop $CONFIG_SERVER_CONTAINER
-	                  docker rm $CONFIG_SERVER_CONTAINER
-	                fi
-	                if [ "$(docker ps -q -f name=$EUREKA_SERVER_CONTAINER)" ]; then
-	                  docker stop $EUREKA_SERVER_CONTAINER
-	                  docker rm $EUREKA_SERVER_CONTAINER
-	                fi
-	                if [ "$(docker ps -q -f name=$LOAN_CONTAINER)" ]; then
-	                  docker stop $LOAN_CONTAINER
-	                  docker rm $LOAN_CONTAINER
-	                fi
-	                if [ "$(docker ps -q -f name=$LOGIN_CONTAINER)" ]; then
-	                  docker stop $LOGIN_CONTAINER
-	                  docker rm $LOGIN_CONTAINER
-	                fi
-	                if [ "$(docker ps -q -f name=$PROFILE_CONTAINER)" ]; then
-	                  docker stop $PROFILE_CONTAINER
-	                  docker rm $PROFILE_CONTAINER
-	                fi
-	                if [ "$(docker ps -q -f name=$REGISTRATION_CONTAINER)" ]; then
-	                  docker stop $REGISTRATION_CONTAINER
-	                  docker rm $REGISTRATION_CONTAINER
-	                fi
-	                if [ "$(docker ps -q -f name=$STATEMENT_CONTAINER)" ]; then
-	                  docker stop $STATEMENT_CONTAINER
-	                  docker rm $STATEMENT_CONTAINER
-	                fi
-	                if [ "$(docker ps -q -f name=$TRANSFER_CONTAINER)" ]; then
-	                  docker stop $TRANSFER_CONTAINER
-	                  docker rm $TRANSFER_CONTAINER
-	                fi
+	                $containerId = docker ps -q -f "name=$ACCOUNTS_CONTAINER"
+
+                    if ($containerId) {
+                        docker stop $ACCOUNTS_CONTAINER
+                        docker rm $ACCOUNTS_CONTAINER
+                    }
+                    
+                    $containerId = docker ps -q -f "name=$API_GATEWAY_CONTAINER"
+
+                    if ($containerId) {
+                        docker stop $API_GATEWAY_CONTAINER
+                        docker rm $API_GATEWAY_CONTAINER
+                    }
+                    
+                    $containerId = docker ps -q -f "name=$BILL_PAYMENT_CONTAINER"
+
+                    if ($containerId) {
+                        docker stop $BILL_PAYMENT_CONTAINER
+                        docker rm $BILL_PAYMENT_CONTAINER
+                    }
+                    
+                    $containerId = docker ps -q -f "name=$CONFIG_SERVER_CONTAINER"
+
+                    if ($containerId) {
+                        docker stop $CONFIG_SERVER_CONTAINER
+                        docker rm $CONFIG_SERVER_CONTAINER
+                    }
+                    
+                    $containerId = docker ps -q -f "name=$EUREKA_SERVER_CONTAINER"
+
+                    if ($containerId) {
+                        docker stop $EUREKA_SERVER_CONTAINER
+                        docker rm $EUREKA_SERVER_CONTAINER
+                    }
+                    
+                    $containerId = docker ps -q -f "name=$LOAN_CONTAINER"
+
+                    if ($containerId) {
+                        docker stop $LOAN_CONTAINER
+                        docker rm $LOAN_CONTAINER
+                    }
+                    
+                    $containerId = docker ps -q -f "name=$LOGIN_CONTAINER"
+
+                    if ($containerId) {
+                        docker stop $LOGIN_CONTAINER
+                        docker rm $LOGIN_CONTAINER
+                    }
+                    
+                    $containerId = docker ps -q -f "name=$PROFILE_CONTAINER"
+
+                    if ($containerId) {
+                        docker stop $PROFILE_CONTAINER
+                        docker rm $PROFILE_CONTAINER
+                    }
+                    
+                    $containerId = docker ps -q -f "name=$REGISTRATION_CONTAINER"
+
+                    if ($containerId) {
+                        docker stop $REGISTRATION_CONTAINER
+                        docker rm $REGISTRATION_CONTAINER
+                    }
+                    
+                    $containerId = docker ps -q -f "name=$STATEMENT_CONTAINER"
+
+                    if ($containerId) {
+                        docker stop $STATEMENT_CONTAINER
+                        docker rm $STATEMENT_CONTAINER
+                    }
+                    
+                    $containerId = docker ps -q -f "name=$TRANSFER_CONTAINER"
+
+                    if ($containerId) {
+                        docker stop $TRANSFER_CONTAINER
+                        docker rm $TRANSFER_CONTAINER
+                    }
                 '''
             }
         }
