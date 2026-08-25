@@ -22,7 +22,7 @@ import lombok.Setter;
  * 
  */
 @Entity
-@Table
+@Table(name="transactions")
 @Getter
 @Setter
 public class Transaction implements Comparable<Transaction>	{
