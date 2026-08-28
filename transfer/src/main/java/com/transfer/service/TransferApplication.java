@@ -8,11 +8,12 @@ import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import com.transfer.service.security.JwtUtil;
 
 @SpringBootApplication
 @EnableFeignClients
+@EnableDiscoveryClient
 public class TransferApplication {
 
 	@Value("${token.secret}")

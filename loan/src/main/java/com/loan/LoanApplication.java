@@ -11,7 +11,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.beanvalidation.LocalValidatorFactoryBean;
-
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import com.loan.security.JwtUtil;
 
 import feign.RequestInterceptor;
@@ -19,6 +19,7 @@ import feign.RequestTemplate;
 
 @SpringBootApplication
 @EnableFeignClients
+@EnableDiscoveryClient
 public class LoanApplication {
 
 	@Value("${token.secret}")
