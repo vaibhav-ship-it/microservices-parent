@@ -73,8 +73,18 @@ public class LoginController {
 	
 	@GetMapping("/getBalance")
 	public long getBalance(@RequestHeader("username") String username)	{
-		
-		return accountFeign.currentBalance(getAccountNoFromUsername(username));
+		System.out.println("Username: " + username);
+		String accountNumber = getAccountNoFromUsername(username);
+		System.out.println("Account No: " + accountNumber);
+		try {
+		    long balance = accountFeign.currentBalance(accountNumber);
+		    System.out.println("Balance returned: " + balance);
+		    return balance;
+		} catch (Exception e) {
+		    e.printStackTrace();
+		    return 0L;
+		    //throw e;
+		}
 	}
 	
 	@GetMapping("/getStatement")

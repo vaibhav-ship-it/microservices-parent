@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.transaction.annotation.Transactional;
 import com.transfer.service.feign.AccountsFeign;
 import com.transfer.service.feign.LoginFeign;
 import com.transfer.service.model.DepositWithdrawRequestModel;
@@ -30,6 +30,7 @@ public class TransferController {
 	}
 	
 	@PostMapping("/transfer")
+	@Transactional
 	public ResponseEntity<String> transfer(@RequestBody TransferRequestModel transferRequestModel, @RequestHeader("username") String username)	{
 		// deposit in recipient account
 		DepositWithdrawRequestModel depositRequestModel = new DepositWithdrawRequestModel();

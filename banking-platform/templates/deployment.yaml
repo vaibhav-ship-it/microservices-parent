@@ -1,0 +1,36 @@
+{{- range .Values.services }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .name }}
+spec:
+  replicas: {{ .replicas }}
+  selector:
+    matchLabels:
+      app: {{ .name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .name }}
+    spec:
+      containers:
+      - name: {{ .name }}
+        image: {{ .image }}
+        imagePullPolicy: Always
+        env:
+        - name: CONFIG_SERVER_URL
+          value: "http://configserver:7000/"
+          
+        - name: EUREKA_URL
+          value: "http://eurekaserver:8761/eureka/"
+          
+        - name: DB_USERNAME
+          value: "sqladmin"
+          
+        - name: DB_PASSWORD
+          value: "StrongPassword@123"
+          
+        ports:
+        - containerPort: {{ .port }}
+---
+{{- end }}

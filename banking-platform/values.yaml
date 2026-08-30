@@ -1,0 +1,72 @@
+services:
+  - name: configserver
+    image: bankingacr.azurecr.io/config-server
+    tag: latest
+    port: 7000
+    replicas: 1
+
+  - name: eurekaserver
+    image: bankingacr.azurecr.io/eureka-server
+    tag: latest
+    port: 8761
+    replicas: 1
+
+  - name: gatewayserver
+    image: bankingacr.azurecr.io/api-gateway
+    tag: latest
+    port: 9000
+    replicas: 1
+
+  - name: accounts-service
+    image: bankingacr.azurecr.io/accounts
+    tag: latest
+    port: 8005
+    replicas: 1
+
+  - name: loan-service
+    image: bankingacr.azurecr.io/loan
+    tag: latest
+    port: 8004
+    replicas: 1
+
+  - name: profile-service
+    image: bankingacr.azurecr.io/profile
+    tag: latest
+    port: 8007
+    replicas: 1
+
+  - name: registration-service
+    image: bankingacr.azurecr.io/registration
+    tag: latest
+    port: 8000
+    replicas: 1
+
+  - name: statement-service
+    image: bankingacr.azurecr.io/statement
+    tag: latest
+    port: 8003
+    replicas: 1
+
+  - name: transfer-service
+    image: bankingacr.azurecr.io/transfer
+    tag: latest
+    port: 8002
+    replicas: 1
+
+  - name: login-service
+    image: bankingacr.azurecr.io/login
+    tag: latest
+    port: 8001
+    replicas: 1
+
+  - name: bill-payment-service
+    image: bankingacr.azurecr.io/bill-payment
+    tag: latest
+    port: 8006
+    replicas: 1
+
+  - name: bankingui
+    image: bankingacr.azurecr.io/banking-ui
+    tag: latest
+    port: 4200
+    replicas: 1

@@ -1,0 +1,114 @@
+trigger:
+  - main
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  acrName: bankingacr
+  acrLoginServer: bankingacr.azurecr.io
+  imageTag: $(Build.BuildId)
+  subscriptionName : Azure Subscription 1
+
+steps:
+
+# Build all microservices
+- task: Maven@4
+  displayName: Build Backend Services
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'clean package -DskipTests'
+
+# Login to ACR
+- task: AzureCLI@2
+  displayName: ACR Login
+  inputs:
+    azureSubscription: $(subscriptionName) 
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az acr login --name $(acrName)
+
+# Build Config Server
+- script: |
+    docker build -t $(acrLoginServer)/config-server:$(imageTag) ./config-server
+    docker push $(acrLoginServer)/config-server:$(imageTag)
+  displayName: Config Server Image
+
+# Build Eureka
+- script: |
+    docker build -t $(acrLoginServer)/eureka-server:$(imageTag) ./eureka-server
+    docker push $(acrLoginServer)/eureka-server:$(imageTag)
+  displayName: Eureka Image
+
+# Build Gateway
+- script: |
+    docker build -t $(acrLoginServer)/api-gateway:$(imageTag) ./api-gateway
+    docker push $(acrLoginServer)/api-gateway:$(imageTag)
+  displayName: Gateway Image
+
+# Build Login
+- script: |
+    docker build -t $(acrLoginServer)/login-service:$(imageTag) ./login
+    docker push $(acrLoginServer)/login-service:$(imageTag)
+  displayName: Login Image
+
+# Build Accounts
+- script: |
+    docker build -t $(acrLoginServer)/accounts-service:$(imageTag) ./accounts
+    docker push $(acrLoginServer)/accounts-service:$(imageTag)
+  displayName: Accounts Image
+
+# Registration
+- script: |
+    docker build -t $(acrLoginServer)/registration-service:$(imageTag) ./registration
+    docker push $(acrLoginServer)/registration-service:$(imageTag)
+  displayName: Registration Image
+
+# Profile
+- script: |
+    docker build -t $(acrLoginServer)/profile-service:$(imageTag) ./profile
+    docker push $(acrLoginServer)/profile-service:$(imageTag)
+  displayName: Profile Image
+
+# Transfer
+- script: |
+    docker build -t $(acrLoginServer)/transfer-service:$(imageTag) ./transfer
+    docker push $(acrLoginServer)/transfer-service:$(imageTag)
+  displayName: Transfer Image
+
+# Loan
+- script: |
+    docker build -t $(acrLoginServer)/loan-service:$(imageTag) ./loan
+    docker push $(acrLoginServer)/loan-service:$(imageTag)
+  displayName: Loan Image
+
+# Statement
+- script: |
+    docker build -t $(acrLoginServer)/statement-service:$(imageTag) ./statement
+    docker push $(acrLoginServer)/statement-service:$(imageTag)
+  displayName: Statement Image
+
+# Bill Payment
+- script: |
+    docker build -t $(acrLoginServer)/bill-payment-service:$(imageTag) ./bill-payment
+    docker push $(acrLoginServer)/bill-payment-service:$(imageTag)
+  displayName: Bill Payment Image
+
+# AKS credentials
+- task: AzureCLI@2
+  displayName: Connect AKS
+  inputs:
+    azureSubscription: $(subscriptionName)
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      az aks get-credentials \
+        --resource-group banking-rg \
+        --name banking-aks \
+        --overwrite-existing
+
+# Deploy Helm
+- script: |
+    helm upgrade banking-app ./banking-platform --install
+  displayName: Deploy Helm Chart

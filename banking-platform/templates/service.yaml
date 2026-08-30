@@ -1,0 +1,21 @@
+{{- range .Values.services }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .name }}
+spec:
+  {{- if or (eq .name "bankingui") (eq .name "gatewayserver") }}
+  type: LoadBalancer
+  {{- else }}
+  type: ClusterIP
+  {{- end }}
+
+  selector:
+    app: {{ .name }}
+
+  ports:
+    - port: {{ .port }}
+      targetPort: {{ .port }}
+      protocol: TCP
+---
+{{- end }}
